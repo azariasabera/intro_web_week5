@@ -50,7 +50,8 @@ const initMap = function(data) {
 
 let getFeature = (features, layer) => {
 
-    const id = features.id.slice(11);
+    const municipality = features.properties.kunta;
+    const id = positiveMig.dataset.dimension.Tuloalue.category.index[`KU${municipality}`];
     
     // when hovering
     layer.bindTooltip(features.properties.name)
@@ -58,11 +59,10 @@ let getFeature = (features, layer) => {
     // when clicking
     layer.bindPopup(
         `<ul>
-            
+            <li>Name: ${features.properties.name}</li>
             <li>Positive migration: ${positiveMig.dataset.value[id]}</li>
             <li>Negative migration: ${negativeMig.dataset.value[id]}</li>
         </ul>`
-        //<li>Name: ${features.properties.name}</li>
     )
 }
 
@@ -76,7 +76,7 @@ async function fetchMigriData() {
 
     positiveMig = positiveMigData
     negativeMig = negativeMigData
-    
+
     fetchData()
 } 
 
@@ -89,9 +89,10 @@ const getStyle = (features) => {
 }
 
 const hue = (features) => {
-    let id = features.id.slice(11);
+    const municipality = features.properties.kunta;
+    const id = positiveMig.dataset.dimension.Tuloalue.category.index[`KU${municipality}`];
     let pos = positiveMig.dataset.value[id];
-    let neg = negativeMig.dataset.value[id];
+    let neg = negativeMig.dataset.value[id] || 1; // to avoid division by zero
     
     let net = Math.pow((pos/neg), 3)*60;
     
