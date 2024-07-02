@@ -82,8 +82,8 @@ async function fetchMigriData() {
 const getStyle = (features) => {
     return {
         fillColor: `hsl(${hue(features)}, 100%, 50%)`,
-        color: 'black',
-        fillOpacity: 0.5
+        color: `hsl(${hue(features)}, 100%, 50%)`,
+        fillOpacity: 0.3
     }
 }
 
