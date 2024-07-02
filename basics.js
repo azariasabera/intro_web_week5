@@ -58,10 +58,11 @@ let getFeature = (features, layer) => {
     // when clicking
     layer.bindPopup(
         `<ul>
-            <li>Name: ${features.properties.name}</li>
+            
             <li>Positive migration: ${positiveMig.dataset.value[id]}</li>
             <li>Negative migration: ${negativeMig.dataset.value[id]}</li>
         </ul>`
+        //<li>Name: ${features.properties.name}</li>
     )
 }
 
@@ -81,8 +82,8 @@ async function fetchMigriData() {
 
 const getStyle = (features) => {
     return {
-        fillColor: `hsl(${hue(features)}, 100%, 50%)`,
-        color: `hsl(${hue(features)}, 100%, 50%)`,
+        fillColor: `hsl(${hue(features)}, 75%, 50%)`,
+        color: `hsl(${hue(features)}, 75%, 50%)`,
         fillOpacity: 0.3
     }
 }
